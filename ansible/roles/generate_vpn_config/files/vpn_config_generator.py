@@ -46,15 +46,15 @@ def get_vpn_config(regions, public_ip):
                 }
             ]
         )
-        local_config = parse_vpn_response(response)
+        mark = iter(range(100, 4000, 100))
+        local_config = parse_vpn_response(response, mark)
         global_config.update(local_config)
 
     return global_config
 
 
-def parse_vpn_response(response):
+def parse_vpn_response(response, mark):
     config = OrderedDict()
-    mark=iter(range(100, 4000, 100))
     for connection in response['VpnConnections']:
         vpn_id = connection['VpnConnectionId']
         config[vpn_id] = OrderedDict()
