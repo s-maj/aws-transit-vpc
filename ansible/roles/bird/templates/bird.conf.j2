@@ -31,7 +31,6 @@ template bgp aws {
 {% endif %}
 {% endfor %}
 
-
 {% for vpn_gw, tunnels in vpn_config.items() %}
 {% for tunnel, tunnel_props in tunnels.items() %}
 protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '') | upper }} from aws {
