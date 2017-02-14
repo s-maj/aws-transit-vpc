@@ -19,6 +19,7 @@ def get_regions():
 
 def get_vpn_config(regions, public_ip):
     global_config = OrderedDict()
+    mark = iter(range(100, 4000, 100))
     for region in regions:
         print("Looking in %s" % region)
         session = Session(region_name=region)
@@ -46,7 +47,6 @@ def get_vpn_config(regions, public_ip):
                 }
             ]
         )
-        mark = iter(range(100, 4000, 100))
         local_config = parse_vpn_response(response, mark)
         global_config.update(local_config)
 
@@ -77,7 +77,7 @@ def parse_vpn_response(response, mark):
                 'ip_address']
             config[vpn_id][tunnel_key]['left_asn'] = tunnel['vpn_gateway']['bgp']['asn']
             config[vpn_id][tunnel_key]['psk'] = tunnel['ike']['pre_shared_key']
-            config[vpn_id][tunnel_key]['mark'] = mark.next()
+            config[vpn_id][tunnel_key]['mark'] = next(mark)
 
     return config
 
@@ -87,5 +87,6 @@ all_regions = get_regions()
 config = get_vpn_config(all_regions, public_ip)
 
 print("Writing config file")
+print(config)
 with open('/tmp/vpn_conf.json', 'w') as f:
     f.write(json.dumps(config))
