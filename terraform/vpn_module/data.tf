@@ -18,3 +18,7 @@ data "template_file" "role_profile" {
 data "template_file" "role_policy" {
   template = "${file("${path.module}/templates/policy.json")}"
 }
+
+data "template_file" "vault_userdata" {
+    template = "${file("${path.module}/templates/userdata.sh")}"
+}
