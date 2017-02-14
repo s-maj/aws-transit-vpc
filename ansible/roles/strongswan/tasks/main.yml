@@ -17,12 +17,12 @@
   - { name: net.ipv4.conf.eth0.disable_xfrm, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_policy, value: 1 }
 
-- name: Print version
-  debug:
-    msg: "{{ vpn_config }}"
-
 - name: Deploy ipsec.conf
   template: src=ipsec.conf.j2 dest=/etc/strongswan/ipsec.conf
+  notify: restart strongSwan
+
+- name: Deploy charon.conf
+  template: src=charon.conf.j2 dest=/etc/strongswan/strongswan.d/charon.conf
   notify: restart strongSwan
 
 - name: Deploy ipsec.secrets
