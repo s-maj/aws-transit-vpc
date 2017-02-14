@@ -87,6 +87,5 @@ all_regions = get_regions()
 config = get_vpn_config(all_regions, public_ip)
 
 print("Writing config file")
-print(config)
 with open('/tmp/vpn_conf.json', 'w') as f:
     f.write(json.dumps(config))
