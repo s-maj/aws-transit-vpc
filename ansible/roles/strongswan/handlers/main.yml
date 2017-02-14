@@ -1,0 +1,5 @@
+---
+- name: restart strongSwan
+  service:
+    name=strongswan
+    state=restarted
