@@ -54,6 +54,7 @@ def get_vpn_config(regions, public_ip):
 
 def parse_vpn_response(response):
     config = OrderedDict()
+    mark=iter(range(100, 4000, 100))
     for connection in response['VpnConnections']:
         vpn_id = connection['VpnConnectionId']
         config[vpn_id] = OrderedDict()
@@ -76,6 +77,7 @@ def parse_vpn_response(response):
                 'ip_address']
             config[vpn_id][tunnel_key]['left_asn'] = tunnel['vpn_gateway']['bgp']['asn']
             config[vpn_id][tunnel_key]['psk'] = tunnel['ike']['pre_shared_key']
+            config[vpn_id][tunnel_key]['mark'] = mark.next()
 
     return config
 
