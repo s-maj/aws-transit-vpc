@@ -1,0 +1,19 @@
+---
+- name: Upgrade all packages
+  yum:
+    name=*
+    state=latest
+
+- name: Install libselinux-python
+  yum:
+    name=libselinux-python
+    state=present
+
+- name: Install python pip
+  yum:
+    name=python2-pip
+    state=present
+
+- name: Disable SELinux
+  selinux:
+    state: disabled

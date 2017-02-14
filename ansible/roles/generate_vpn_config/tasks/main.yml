@@ -1,0 +1,12 @@
+---
+- name: Install python module xmldict
+  pip:
+    name: {{ item.name }}
+   with_items:
+    - xmldict
+    - boto3
+
+- name: Copy VPN config generator
+  copy:
+    src=vpn_config_generator.py
+    dest=/tmp/vpn_config_generator.py
