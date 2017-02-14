@@ -1,2 +1,4 @@
 #!/bin/bash
-echo ECS_CLUSTER=${cluster_name} >> /etc/ecs/ecs.config
+yum install epel-release -y
+yum update -y
+yum install ansible -y
