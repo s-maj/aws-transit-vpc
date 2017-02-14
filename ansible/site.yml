@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+
+  roles:
+  - common
+  - generate_vpn_config
+  - strongswan
+  - bird
