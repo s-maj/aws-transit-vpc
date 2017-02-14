@@ -28,11 +28,6 @@ variable "tags" {
   type = "map"
 }
 
-variable "userdata" {
-  type    = "string"
-  default = ""
-}
-
 variable "profile_name" {
   type    = "string"
   default = "default"
