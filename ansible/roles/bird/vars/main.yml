@@ -1,0 +1,2 @@
+---
+vpn_config: "{{ lookup('file', '/tmp/vpn_conf.json') | from_json }}"
