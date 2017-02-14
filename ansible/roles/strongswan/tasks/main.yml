@@ -4,7 +4,6 @@
     name=strongswan
     state=present
 
-
 - name: Change sysctl
   sysctl:
     name: "{{ item.name }}"
