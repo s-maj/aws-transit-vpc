@@ -1,8 +1,8 @@
 ---
-- name: Install python module xmldict
+- name: Install python module
   pip:
-    name: {{ item.name }}
-   with_items:
+    name: "{{ item }}"
+  with_items:
     - xmldict
     - boto3
 
