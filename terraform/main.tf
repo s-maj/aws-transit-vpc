@@ -43,6 +43,8 @@ module "vpn-server" {
   region         = "eu-west-1"
 
   tags =  {
-    Name = "strongSwan"
+    Name       = "strongSwan",
+    BIRD       = "True",
+    strongSwan = "True"
   }
 }
