@@ -28,16 +28,6 @@ variable "tags" {
   type = "map"
 }
 
-variable "profile_name" {
-  type    = "string"
-  default = "default"
-}
-
-variable "role_arn" {
-  type    = "string"
-  default = ""
-}
-
 variable "region" {
   type    = "string"
   default = "eu-west-1"
