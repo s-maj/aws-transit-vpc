@@ -10,3 +10,6 @@
   copy:
     src=vpn_config_generator.py
     dest=/tmp/vpn_config_generator.py
+
+- name: Execute VPN config generator
+  command: python /tmp/vpn_config_generator.py
