@@ -6,7 +6,7 @@ resource "aws_instance" "ec2" {
   vpc_security_group_ids = ["${aws_security_group.ec2.id}"]
   iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.id}"
   key_name               = "${var.key_name}"
-  user_data              = "${var.userdata}"
+  user_data              = "${data.template_file.userdata.rendered}"
   tags                   = "${var.tags}"
   count                  = "${var.instance_count}"
   lifecycle {
