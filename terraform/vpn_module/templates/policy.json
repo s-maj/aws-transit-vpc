@@ -4,7 +4,8 @@
     {
       "Action": [
         "ec2:DescribeInstances",
-        "ec2:DescribeVpnConnections"
+        "ec2:DescribeVpnConnections",
+        "ec2:DescribeRegions"
       ],
       "Effect": "Allow",
       "Resource": "*"
