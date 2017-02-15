@@ -26,8 +26,8 @@ resource "aws_vpn_connection" "vpn" {
 
   tags {
     Name = "${var.name}"
-    BIRD = "True"
-    ID = "${element(var.cgw_ip_list, count.index)}"
+    bird = "True"
+    id = "${element(var.cgw_ip_list, count.index)}"
   }
 }
 
