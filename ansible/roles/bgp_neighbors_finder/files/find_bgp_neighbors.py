@@ -38,7 +38,7 @@ def find_neighbours(ec2, my_properties):
     response = ec2.describe_instances(
         Filters=[
             {
-                'Name': 'tag:BIRD',
+                'Name': 'tag:bird',
                 'Values': [
                     'True',
                 ]
