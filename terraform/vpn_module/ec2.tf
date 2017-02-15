@@ -7,7 +7,7 @@ resource "aws_instance" "ec2" {
   iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.id}"
   key_name               = "${var.key_name}"
   user_data              = "${data.template_file.userdata.rendered}"
-  tags                   = "${var.tags}"
+  tags                   = "${merge(var.tags, map("ASN", element(var.asn_list, count.index)))}"
   count                  = "${var.instance_count}"
   lifecycle {
     ignore_changes       = ["user_data"]
