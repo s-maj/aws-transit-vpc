@@ -1,2 +1,3 @@
 ---
 vpn_config: "{{ lookup('file', '/tmp/vpn_conf.json') | from_json }}"
+bgp_neighbours: "{{ lookup('file', '/tmp/bgp_neighbours.json') | from_json }}"
