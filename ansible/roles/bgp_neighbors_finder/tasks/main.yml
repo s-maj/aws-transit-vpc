@@ -1,0 +1,14 @@
+---
+- name: Install python module
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - boto3
+
+- name: Copy BGP neighbour finder
+  copy:
+    src=find_bird_neighbors.py
+    dest=/tmp/find_bgp_neighbors.py
+
+- name: Execute BGP neighbour finder
+  command: python /tmp/find_bgp_neighbors.py
