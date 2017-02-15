@@ -8,8 +8,11 @@ from xmldict import xml_to_dict
 
 def get_regions():
     regions_list = []
-    current_region = Session()._session.get_config_variable('region')
-    session = Session(region_name=current_region)
+
+    response = urllib2.urlopen("http://169.254.169.254/latest/dynamic/instance-identity/document").read()
+    response = json.loads(response)
+
+    session = Session(region_name=response['region'])
     ec2 = session.client('ec2')
     regions = ec2.describe_regions()
     for region in regions['Regions']:
