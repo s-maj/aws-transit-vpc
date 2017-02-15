@@ -64,7 +64,7 @@ def find_neighbours(ec2, my_properties):
         instance = reservation['Instances'][0]
         if instance['PrivateIpAddress'] != my_properties['private_ip']:
             neighbours[instance['InstanceId']] = OrderedDict()
-            neighbours[instance['InstanceId']]['private_id'] = instance['PrivateIpAddress']
+            neighbours[instance['InstanceId']]['private_ip'] = instance['PrivateIpAddress']
             for tags in instance['Tags']:
                 if tags.get('Key') == 'ASN':
                     neighbours[instance['InstanceId']]['ASN'] = tags['Value']
