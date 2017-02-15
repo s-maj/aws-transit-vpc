@@ -13,38 +13,23 @@ resource "aws_route" "default_route" {
   route_table_id = "${aws_route_table.public.id}"
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = "${aws_internet_gateway.default.id}"
-  depends_on = [
-    "aws_route_table.public"]
+  depends_on = [ "aws_route_table.public" ]
 }
 
-resource "aws_subnet" "public_a" {
+resource "aws_subnet" "public" {
   vpc_id = "${aws_vpc.satellite.id}"
-  availability_zone = "${data.aws_availability_zones.available.names[0]}"
+  availability_zone = "${element(data.aws_availability_zones.available.names, count.index)}"
+  cidr_block = "${element(var.public_cidr_list, count.index)}"
   map_public_ip_on_launch = true
-  cidr_block = "${var.public_a_cidr}"
+  count = "${length(var.public_cidr_list)}"
 
   tags {
-    Name = "${var.name}-public-${data.aws_availability_zones.available.names[0]}"
+    Name = "${var.name}-public-${element(data.aws_availability_zones.available.names, count.index)}"
   }
 }
 
-resource "aws_subnet" "public_b" {
-  vpc_id = "${aws_vpc.satellite.id}"
-  availability_zone = "${data.aws_availability_zones.available.names[1]}"
-  map_public_ip_on_launch = true
-  cidr_block = "${var.public_b_cidr}"
-
-  tags {
-    Name = "${var.name}-public-${data.aws_availability_zones.available.names[1]}"
-  }
-}
-
-resource "aws_route_table_association" "public_a" {
-  subnet_id = "${aws_subnet.public_a.id}"
+resource "aws_route_table_association" "public" {
+  subnet_id = "${element(aws_subnet.public.*.id, count.index)}"
   route_table_id = "${aws_route_table.public.id}"
-}
-
-resource "aws_route_table_association" "public_b" {
-  subnet_id = "${aws_subnet.public_b.id}"
-  route_table_id = "${aws_route_table.public.id}"
+  count = "${length(var.public_cidr_list)}"
 }
