@@ -3,6 +3,7 @@
 
   roles:
   - common
-  - generate_vpn_config
+  - vpn_config_generator
+  - bgp_neighbors_finder
   - strongswan
   - bird
