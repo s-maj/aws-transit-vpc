@@ -41,11 +41,11 @@ protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '')
 
 {% for instance, properties in bgp_neighbours.items() %}
 protocol bgp {{ instance | replace('-', '') | upper }} {
-  {% for vpn_gw, tunnels in vpn_config.items() %}
-  {% if loop.first %}
+{% for vpn_gw, tunnels in vpn_config.items() %}
+{% if loop.first %}
   local as {{ tunnels['tunnel-0']['right_asn'] }};
-  {% endif %}
-  {% endfor %}
+{% endif %}
+{% endfor %}
   neighbor {{ properties['private_ip'] }} as {{ properties['asn'] }};
   import all;
   export all;
