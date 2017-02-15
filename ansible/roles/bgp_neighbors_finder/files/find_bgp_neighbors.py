@@ -66,8 +66,8 @@ def find_neighbours(ec2, my_properties):
             neighbours[instance['InstanceId']] = OrderedDict()
             neighbours[instance['InstanceId']]['private_ip'] = instance['PrivateIpAddress']
             for tags in instance['Tags']:
-                if tags.get('Key') == 'ASN':
-                    neighbours[instance['InstanceId']]['ASN'] = tags['Value']
+                if tags.get('Key') == 'asn':
+                    neighbours[instance['InstanceId']]['asn'] = tags['Value']
 
     return neighbours
 
