@@ -5,12 +5,8 @@ module "satellite-nvirginia" {
   cidr_block    = "192.168.220.0/24"
   public_a_cidr = "192.168.220.0/25"
   public_b_cidr = "192.168.220.128/25"
-  cgw_a_asn     = "65000"
-  cgw_b_asn     = "65001"
-  cgw_a_ip      = "${module.vpn-server.elastic_ips[0]}"
-  cgw_b_ip      = "${module.vpn-server.elastic_ips[1]}"
-  profile_name  = "dnb-dublin"
-  role_arn      = "arn:aws:iam::800040397897:role/Administrator"
+  cgw_asn_list   = [ "65000", "65001" ]
+  cgw_ip_list   = "${module.vpn-server.elastic_ips}"
   region        = "us-east-1"
 }
 
@@ -21,12 +17,8 @@ module "satellite-oregon" {
   cidr_block    = "192.168.221.0/24"
   public_a_cidr = "192.168.221.0/25"
   public_b_cidr = "192.168.221.128/25"
-  cgw_a_asn     = "65000"
-  cgw_b_asn     = "65001"
-  cgw_a_ip      = "${module.vpn-server.elastic_ips[0]}"
-  cgw_b_ip      = "${module.vpn-server.elastic_ips[1]}"
-  profile_name  = "dnb-dublin"
-  role_arn      = "arn:aws:iam::800040397897:role/Administrator"
+  cgw_asn_list  = [ "65000", "65001" ]
+  cgw_ip_list   = "${module.vpn-server.elastic_ips}"
   region        = "us-west-2"
 }
 
@@ -38,8 +30,6 @@ module "vpn-server" {
   instance_type  = "t2.small"
   key_name       = "AWSlab"
   instance_count = 2
-  profile_name   = "dnb-dublin"
-  role_arn       = "arn:aws:iam::800040397897:role/Administrator"
   region         = "eu-west-1"
 
   tags =  {

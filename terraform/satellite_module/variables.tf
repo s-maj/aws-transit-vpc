@@ -1,36 +1,43 @@
 variable "name" {
-  type    = "string"
+  type = "string"
 }
 
 variable "cidr_block" {
-  type    = "string"
+  type = "string"
 }
 
 variable "public_a_cidr" {
-  type    = "string"
+  type = "string"
 }
 
 variable "public_b_cidr" {
-  type    = "string"
+  type = "string"
 }
 
-variable "cgw_a_asn" {
-  type    = "string"
+variable "cgw_asn_list" {
+  type = "list"
 }
 
-variable "cgw_b_asn" {
-  type    = "string"
-}
-
-variable "cgw_a_ip" {
-  type    = "string"
-}
-
-variable "cgw_b_ip" {
-  type    = "string"
+variable "cgw_ip_list" {
+  type = "list"
 }
 
 variable "region" {
-  type    = "string"
+  type = "string"
   default = "eu-west-1"
+}
+
+variable "iterator" {
+  type = "list"
+  default = [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10]
 }
