@@ -5,10 +5,10 @@
   with_items:
     - boto3
 
-- name: Copy BGP neighbour finder
+- name: Copy BGP neighbours finder
   copy:
-    src=find_bird_neighbors.py
+    src=find_bgp_neighbors.py
     dest=/tmp/find_bgp_neighbors.py
 
-- name: Execute BGP neighbour finder
+- name: Execute BGP neighbours finder
   command: python /tmp/find_bgp_neighbors.py

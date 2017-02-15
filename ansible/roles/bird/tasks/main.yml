@@ -11,5 +11,4 @@
 - name: Enable and start BIRD
   service:
     name: bird
-    state: started
     enabled: yes
