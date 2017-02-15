@@ -32,13 +32,13 @@ def get_vpn_config(regions, public_ip):
         response = ec2.describe_vpn_connections(
             Filters=[
                 {
-                    'Name': 'tag:BIRD',
+                    'Name': 'tag:bird',
                     'Values': [
                         'True',
                     ]
                 },
                 {
-                    'Name': 'tag:ID',
+                    'Name': 'tag:id',
                     'Values': [
                         public_ip,
                     ]
