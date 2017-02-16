@@ -2,8 +2,8 @@ variable "name" {
   type = "string"
 }
 
-variable "cgw_asn_list" {
-  type = "list"
+variable "cgw_asn" {
+  type = "string"
 }
 
 variable "cgw_ip_list" {

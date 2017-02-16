@@ -1,8 +1,8 @@
 resource "aws_customer_gateway" "cgw" {
-  bgp_asn = "${element(var.cgw_asn_list, count.index)}"
+  bgp_asn = "${var.cgw_asn}"
   ip_address = "${element(var.cgw_ip_list, count.index)}"
   type = "ipsec.1"
-  count = "${length(var.cgw_asn_list)}"
+  count = "${length(var.cgw_asn)}"
 
   tags {
     Name = "${var.name}"
@@ -14,7 +14,7 @@ resource "aws_vpn_connection" "vpn" {
   customer_gateway_id = "${element(aws_customer_gateway.cgw.*.id, count.index)}"
   type = "ipsec.1"
   static_routes_only = false
-  count = "${length(var.cgw_asn_list)}"
+  count = "${length(var.cgw_asn)}"
 
   tags {
     Name = "${var.name}"
