@@ -13,24 +13,26 @@ protocol device {
   scan time 10;
 }
 
-protocol direct {
-  interface "eth0";
-}
 
 {% for vpn_gw, tunnels in vpn_config.items() %}
 {% if loop.first %}
 template bgp aws {
   local as {{ tunnels['tunnel-0']['right_asn'] }};
   hold time 30;
-  import all;
+  import fiter {
+    if net = 10.245.64.0/19 || net = 10.0.0.0/8 then {
+      reject;
+    }
+    accept;
+  };
   export filter {
     if source = RTS_BGP then {
-    bgp_path = + empty +;
-    bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});
-    accept;
+      bgp_path = + empty +;
+      bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});
+      accept;
     }
-  reject;
- };
+    reject;
+  };
 }
 {% endif %}
 {% endfor %}
@@ -40,6 +42,7 @@ template bgp aws {
 protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '') | upper }} from aws {
   neighbor {{ tunnel_props['left_inside_ip'] | dirname }} as {{ tunnel_props['left_asn'] }};
 }
+
 {% endfor %}
 {% endfor %}
 
