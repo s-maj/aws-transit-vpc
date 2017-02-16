@@ -1,7 +1,6 @@
 resource "aws_instance" "ec2" {
   ami                    = "${data.aws_ami.centos_ami.image_id}"
   instance_type          = "${var.instance_type}"
-  monitoring             = true
   subnet_id              = "${element(var.subnet_list_id, count.index)}"
   vpc_security_group_ids = ["${aws_security_group.ec2.id}"]
   iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.id}"
@@ -9,6 +8,8 @@ resource "aws_instance" "ec2" {
   user_data              = "${data.template_file.userdata.rendered}"
   tags                   = "${merge(var.tags, map("asn", var.cgw_asn))}"
   count                  = "${var.instance_count}"
+  monitoring             = true
+  source_dest_check      = false
   lifecycle {
     ignore_changes       = ["user_data"]
   }
