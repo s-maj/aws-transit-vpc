@@ -13,7 +13,6 @@
     sysctl_set: yes
   with_items:
   - { name: net.ipv4.ip_forward, value: 1 }
-  - { name: net.ipv6.conf.all.forwarding, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_xfrm, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_policy, value: 1 }
 
