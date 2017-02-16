@@ -29,12 +29,9 @@ template bgp aws {
     accept;
   };
   export filter {
-    if source = RTS_BGP then {
-      bgp_path = + empty +;
-      bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});
-      accept;
-    }
-    reject;
+    bgp_path = + empty +;
+    bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});
+    accept;
   };
 }
 {% endif %}
