@@ -13,6 +13,10 @@ protocol device {
   scan time 10;
 }
 
+protocol direct {
+  interface "eth0";
+}
+
 {% for vpn_gw, tunnels in vpn_config.items() %}
 {% if loop.first %}
 template bgp aws {
