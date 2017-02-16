@@ -40,4 +40,5 @@
 - name: Enable and start strongSwan
   service:
     name: strongswan
+    state: started
     enabled: yes
