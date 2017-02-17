@@ -1,5 +1,4 @@
 log "/var/log/bird.log" all;
-debug protocols all;
 
 router id {{ aws_private_ip.content }};
 
@@ -12,21 +11,16 @@ protocol device {
   scan time 10;
 }
 
-protocol direct {
-  interface "*";
-}
-
 {% for vpn_gw, tunnels in vpn_config.items() %}
 {% if loop.first %}
 template bgp aws {
   local as {{ tunnels['tunnel-0']['right_asn'] }};
   hold time 30;
+  add paths tx;
+  add paths rx;
+  export all;
   import all;
-  export filter {
-    bgp_path = + empty +;
-    bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});
-    accept;
-  };
+  direct;
 }
 {% endif %}
 {% endfor %}
@@ -39,7 +33,6 @@ protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '')
 
 {% endfor %}
 {% endfor %}
-
 {% for instance, properties in bgp_neighbours.items() %}
 protocol bgp {{ instance | replace('-', '') | upper }} {
 {% for vpn_gw, tunnels in vpn_config.items() %}
