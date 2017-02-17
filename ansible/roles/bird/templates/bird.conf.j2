@@ -1,7 +1,7 @@
 log "/var/log/bird.log" all;
 debug protocols all;
 
-router id {{ ansible_eth0['ipv4']['address'] }};
+router id {{ aws_private_ip.content }};
 
 protocol kernel {
   scan time 10;

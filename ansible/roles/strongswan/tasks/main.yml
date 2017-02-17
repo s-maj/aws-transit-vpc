@@ -22,7 +22,15 @@
   - { name: net.ipv4.conf.all.disable_policy, value: 1 }
   - { name: net.ipv4.conf.default.rp_filter, value: 0 }
   - { name: net.ipv4.conf.default.disable_policy, value: 1 }
+  - { name: net.ipv4.conf.ens3.disable_xfrm, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_xfrm, value: 1 }
+  ignore_errors: yes
+
+- name: Get default private ip
+  uri:
+    url: http://169.254.169.254/latest/meta-data/local-ipv4
+    return_content: yes
+  register: aws_private_ip
 
 - name: Deploy ipsec.conf
   template: src=ipsec.conf.j2 dest=/etc/ipsec.conf

@@ -28,7 +28,7 @@ conn %default
 {% for tunnel, tunnel_props in tunnels.items() %}
 conn {{ vpn_gw }}-{{ tunnel }}
     left={{ tunnel_props['left_outside_ip'] }}
-    right={{ ansible_eth0['ipv4']['address'] }}
+    right={{ aws_private_ip.content }}
     auto=start
     mark={{ tunnel_props['mark'] }}
 {% endfor %}
