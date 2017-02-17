@@ -1,5 +1,4 @@
 ---
-
 - name: Stop and disable apprmor
   service:
     name: apparmor
@@ -9,7 +8,6 @@
 - name: Update all packages
   apt:
     update_cache: yes
-
 
 - name: Upgrade all packages
   apt:
@@ -24,3 +22,8 @@
   - nano
   - tcpdump
 
+- name: Deploy dhclient
+  template: src=dhclient.conf.j2 dest=/etc/dhcp/dhclient.conf
+
+- name: Deploy resolv.conf
+  template: src=resolv.conf.j2 dest=/etc/resolv.conf
