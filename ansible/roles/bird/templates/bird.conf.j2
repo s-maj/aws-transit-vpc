@@ -30,3 +30,5 @@ template bgp aws {
 protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '') | upper }} from aws {
   neighbor {{ tunnel_props['left_inside_ip'] | dirname }} as {{ tunnel_props['left_asn'] }};
 }
+{% endfor %}
+{% endfor %}
