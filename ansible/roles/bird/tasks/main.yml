@@ -1,8 +1,13 @@
 ---
+- name: Add custom BIRD repo
+  apt_repository:
+    repo: 'ppa:cz.nic-labs/bird'
+
 - name: Install BIRD
   apt:
-    name=bird
-    state=present
+    name: bird
+    state: present
+    update_cache: yes
 
 - name: Get default private ip
   uri:
