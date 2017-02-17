@@ -29,6 +29,10 @@
   template: src=charon.conf.j2 dest=/etc/strongswan.d/charon.conf
   notify: restart strongSwan
 
+- name: Deploy charon kernel-link plugin
+  template: src=kernel-netlink.conf.j2 dest=/etc/strongswan.d/charon/kernel-netlink.conf
+  notify: restart strongSwan
+
 - name: Deploy ipsec.secrets
   template: src=ipsec.secrets.j2 dest=/etc/ipsec.secrets
   notify: restart strongSwan
