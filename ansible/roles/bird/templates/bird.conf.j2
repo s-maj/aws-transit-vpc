@@ -4,8 +4,15 @@ debug protocols all;
 router id {{ ansible_eth0['ipv4']['address'] }};
 
 protocol kernel {
-  persist;
   scan time 10;
+  export all;
+}
+
+table aws_routes;
+protocol kernel {
+  table aws_routes;
+  device routes;
+  persist;
   export all;
 }
 
@@ -22,12 +29,9 @@ protocol direct {
 template bgp aws {
   local as {{ tunnels['tunnel-0']['right_asn'] }};
   hold time 30;
-  import filter {
-    if net = 10.245.64.0/19 || net = 10.0.0.0/8 || net = 192.168.0.0/16 then {
-      reject;
-    }
-    accept;
-  };
+  table aws_routes;
+  igp table master;
+  import all;
   export filter {
     bgp_path = + empty +;
     bgp_path.prepend({{ tunnels['tunnel-0']['right_asn'] }});

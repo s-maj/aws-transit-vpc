@@ -1,11 +1,11 @@
 ---
 - name: Install BIRD
-  yum:
+  apt:
     name=bird
     state=present
 
 - name: Deploy bird.conf
-  template: src=bird.conf.j2 dest=/etc/bird.conf
+  template: src=bird.conf.j2 dest=/etc/bird/bird.conf
   notify: restart BIRD
 
 - name: Enable and start BIRD
