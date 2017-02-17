@@ -17,10 +17,9 @@ conn %default
     reauth=no
     dpdaction=restart
     closeaction=restart
-    left=%defaultroute
-    leftsubnet=0.0.0.0/0,::/0
-    rightsubnet=0.0.0.0/0,::/0
-    rightupdown=/etc/strongswan/ipsec-vti.sh
+    leftsubnet=0.0.0.0/0
+    rightsubnet=0.0.0.0/0
+    rightupdown=/etc/strongswan.d/ipsec-vti.sh
     installpolicy=yes
     compress=no
     mobike=no
@@ -29,7 +28,7 @@ conn %default
 {% for tunnel, tunnel_props in tunnels.items() %}
 conn {{ vpn_gw }}-{{ tunnel }}
     left={{ tunnel_props['left_outside_ip'] }}
-    right={{ ansible_eth0['ipv4']['address'] }}
+    right={{ aws_private_ip.content }}
     auto=start
     mark={{ tunnel_props['mark'] }}
 {% endfor %}

@@ -2,7 +2,7 @@ variable "name" {
   type = "string"
 }
 
-variable "cgw_asn_list" {
+variable "asn_list" {
   type = "list"
 }
 

@@ -1,8 +1,13 @@
 ---
+- name: Add custom strongSwan repo
+  apt_repository:
+    repo: 'ppa:develer/strongswan'
+
 - name: Install strongSwan
-  yum:
-    name=strongswan
-    state=present
+  apt:
+    name: strongswan
+    state: present
+    update_cache: yes
 
 - name: Change sysctl
   sysctl:
@@ -13,31 +18,47 @@
     sysctl_set: yes
   with_items:
   - { name: net.ipv4.ip_forward, value: 1 }
+  - { name: net.ipv4.conf.all.rp_filter, value: 0 }
+  - { name: net.ipv4.conf.all.disable_policy, value: 1 }
+  - { name: net.ipv4.conf.default.rp_filter, value: 0 }
+  - { name: net.ipv4.conf.default.disable_policy, value: 1 }
+  - { name: net.ipv4.conf.ens3.disable_xfrm, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_xfrm, value: 1 }
-  - { name: net.ipv4.conf.eth0.disable_policy, value: 1 }
+  ignore_errors: yes
+
+- name: Get default private ip
+  uri:
+    url: http://169.254.169.254/latest/meta-data/local-ipv4
+    return_content: yes
+  register: aws_private_ip
 
 - name: Deploy ipsec.conf
-  template: src=ipsec.conf.j2 dest=/etc/strongswan/ipsec.conf
+  template: src=ipsec.conf.j2 dest=/etc/ipsec.conf
   notify: restart strongSwan
 
 - name: Deploy charon.conf
-  template: src=charon.conf.j2 dest=/etc/strongswan/strongswan.d/charon.conf
+  template: src=charon.conf.j2 dest=/etc/strongswan.d/charon.conf
+  notify: restart strongSwan
+
+- name: Deploy charon kernel-link plugin
+  template: src=kernel-netlink.conf.j2 dest=/etc/strongswan.d/charon/kernel-netlink.conf
   notify: restart strongSwan
 
 - name: Deploy ipsec.secrets
-  template: src=ipsec.secrets.j2 dest=/etc/strongswan/ipsec.secrets
+  template: src=ipsec.secrets.j2 dest=/etc/ipsec.secrets
   notify: restart strongSwan
 
 - name: Deploy ipsec-vti.sh
-  template: src=ipsec-vti.sh.j2 dest=/etc/strongswan/ipsec-vti.sh
+  template: src=ipsec-vti.sh.j2 dest=/etc/strongswan.d/ipsec-vti.sh
   notify: restart strongSwan
 
 - name: Make ipsec-vti.sh exacutable
   file:
-    path: /etc/strongswan/ipsec-vti.sh
+    path: /etc/strongswan.d/ipsec-vti.sh
     mode: "u=rwx,g=rwx,o-rwx"
 
 - name: Enable and start strongSwan
   service:
     name: strongswan
+    state: started
     enabled: yes

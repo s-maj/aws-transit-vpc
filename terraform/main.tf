@@ -4,7 +4,7 @@ module "satellite-nvirginia" {
   name             = "satellite-nvirginia"
   cidr_block       = "192.168.220.0/24"
   public_cidr_list = [ "192.168.220.0/25", "192.168.220.128/25" ]
-  cgw_asn_list     = [ "65000", "65001" ]
+  asn_list         = [ "65200", "65201" ]
   cgw_ip_list      = "${module.vpn-server.elastic_ips}"
   region           = "us-east-1"
 }
@@ -15,7 +15,7 @@ module "satellite-oregon" {
   name             = "satellite-nvirginia"
   cidr_block       = "192.168.221.0/24"
   public_cidr_list = [ "192.168.221.0/25", "192.168.221.128/25" ]
-  cgw_asn_list     = [ "65000", "65001" ]
+  asn_list         = [ "65200", "65201" ]
   cgw_ip_list      = "${module.vpn-server.elastic_ips}"
   region           = "us-west-2"
 }
@@ -48,6 +48,16 @@ module "vpn-probe-satellite-oregon" {
   }
 }
 
+module "vpn_direct_connect" {
+  source = "./direct_connect_module"
+
+  name               = "strongSwanToDirectConnect"
+  direct_connect_vgw = "vgw-26c3f052"
+  asn_list           = [ "65200", "65201" ]
+  cgw_ip_list        = "${module.vpn-server.elastic_ips}"
+  region             = "eu-west-1"
+}
+
 module "vpn-server" {
   source = "./vpn_module"
 
@@ -56,7 +66,7 @@ module "vpn-server" {
   instance_type  = "t2.small"
   key_name       = "AWSlab"
   instance_count = 2
-  asn_list       = [ "65000", "65001" ]
+  asn_list       = [ "65200", "65201" ]
   region         = "eu-west-1"
 
   tags =  {
