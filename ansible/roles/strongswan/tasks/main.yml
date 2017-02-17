@@ -18,8 +18,11 @@
     sysctl_set: yes
   with_items:
   - { name: net.ipv4.ip_forward, value: 1 }
+  - { name: net.ipv4.conf.all.rp_filter, value: 0 }
+  - { name: net.ipv4.conf.all.disable_policy, value: 1 }
+  - { name: net.ipv4.conf.default.rp_filter, value: 0 }
+  - { name: net.ipv4.conf.default.disable_policy, value: 1 }
   - { name: net.ipv4.conf.eth0.disable_xfrm, value: 1 }
-  - { name: net.ipv4.conf.eth0.disable_policy, value: 1 }
 
 - name: Deploy ipsec.conf
   template: src=ipsec.conf.j2 dest=/etc/ipsec.conf
