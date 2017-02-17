@@ -30,20 +30,3 @@ template bgp aws {
 protocol bgp {{ vpn_gw | replace('-', '') | upper }}{{ tunnel | replace('-', '') | upper }} from aws {
   neighbor {{ tunnel_props['left_inside_ip'] | dirname }} as {{ tunnel_props['left_asn'] }};
 }
-
-{% endfor %}
-{% endfor %}
-{% for instance, properties in bgp_neighbours.items() %}
-protocol bgp {{ instance | replace('-', '') | upper }} {
-{% for vpn_gw, tunnels in vpn_config.items() %}
-{% if loop.first %}
-  local as {{ tunnels['tunnel-0']['right_asn'] }};
-{% endif %}
-{% endfor %}
-  neighbor {{ properties['private_ip'] }} as {{ properties['asn'] }};
-  import all;
-  export all;
-  hold time 30;
-  multihop;
-}
-{% endfor %}

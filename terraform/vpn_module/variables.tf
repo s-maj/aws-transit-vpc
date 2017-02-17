@@ -28,8 +28,8 @@ variable "tags" {
   type = "map"
 }
 
-variable "cgw_asn" {
-  type = "string"
+variable "asn_list" {
+  type = "list"
 }
 
 variable "region" {

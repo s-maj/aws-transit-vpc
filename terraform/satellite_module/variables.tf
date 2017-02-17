@@ -10,8 +10,8 @@ variable "public_cidr_list" {
   type = "list"
 }
 
-variable "cgw_asn" {
-  type = "string"
+variable "asn_list" {
+  type = "list"
 }
 
 variable "cgw_ip_list" {

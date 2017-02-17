@@ -6,7 +6,7 @@ resource "aws_instance" "ec2" {
   iam_instance_profile   = "${aws_iam_instance_profile.ec2_profile.id}"
   key_name               = "${var.key_name}"
   user_data              = "${data.template_file.userdata.rendered}"
-  tags                   = "${merge(var.tags, map("asn", var.cgw_asn))}"
+  tags                   = "${merge(var.tags, map("asn", element(var.asn_list, count.index)))}"
   count                  = "${var.instance_count}"
   monitoring             = true
   source_dest_check      = false
