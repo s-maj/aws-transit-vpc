@@ -8,20 +8,12 @@ protocol kernel {
   export all;
 }
 
-table aws_routes;
-protocol kernel {
-  table aws_routes;
-  device routes;
-  persist;
-  export all;
-}
-
 protocol device {
   scan time 10;
 }
 
 protocol direct {
-  interface "eth0";
+  interface "*";
 }
 
 {% for vpn_gw, tunnels in vpn_config.items() %}
@@ -29,8 +21,6 @@ protocol direct {
 template bgp aws {
   local as {{ tunnels['tunnel-0']['right_asn'] }};
   hold time 30;
-  table aws_routes;
-  igp table master;
   import all;
   export filter {
     bgp_path = + empty +;
