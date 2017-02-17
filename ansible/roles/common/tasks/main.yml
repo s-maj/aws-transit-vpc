@@ -1,6 +1,6 @@
 ---
 
-- name: Stop apprmor
+- name: Stop and disable apprmor
   service:
     name: apparmor
     state: stopped
