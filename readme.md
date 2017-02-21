@@ -1,4 +1,4 @@
-##Platform
+## Platform
 * Ubuntu 16.04.2 or later (anything with kernel 4.4+)
 * BIRD 1.6.3 or later
 * strongSwan 5.5.1 or later
@@ -6,7 +6,7 @@
 * Boto3
 * xmljson 0.1.7
 
-##Terraform
+## Terraform
 Tags used for VPN identification:
 * bird = True (static)
 * id =  puiblic ip of VPN server [Elastic IP] (dynamic)
