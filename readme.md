@@ -6,6 +6,53 @@
 * Boto3
 * xmljson 0.1.7
 
+# Design
+```
+          +---------------+                 +---------------+                              
+          |               |                 |               |                              
+          |   some VPC    |                 |   some other  |                              
+          |               |                 |      VPC      |                              
+          +-----+---+-----+                 +-----+---+-----+                              
+                |VGW|                             |VGW|                                    
+                |---\                             |---\                                    
+               /     \                           /     \                                   
+              /       \                         /       \                                  
+              |        \                        |        \                                 
++------------/       +------------+  +---------/--+      +------------+                    
+|   VPN #1   |       |   VPN #2   |  |   VPN #3   |      |   VPN #4   |                    
++------------+\      +------------\  +--/---------+      +--/---------+                    
+               \                   \   /                   /                               
+                \                   \ /                   /                                
+                 \                   /                   /                                 
+                  \                /- \                /-                                  
+                   \              /    \              /                                    
+                    \            /      \            /                                     
+               +-----\----------/--------\----------/----+                                 
+               |      \        /          \        /     |                                 
+               |   +-------------+     +-------------+   |                                 
+               |   |VPN server #1|     |VPN server #2|   |                                 
+               |   +------|------+     +---|---------+   |                                 
+               |          |                |             |                                 
+               +----------|----------------|-------------+                                 
+                          |                |                                               
+                          |                |                                               
+                          |                |                                               
+                    +-----|------+   +-----|------+                                        
+                    | VPN DC #1  |   | VPN DC #2  |                                        
+                    +-----\------+   +--/---------+                                        
+                           \           /                                                   
+                            \         /                                                    
+                             |      /-                                                     
+                             \     /                                                       
+                              \   /                                                        
+                               \ /                                                         
+                                ----+-----------+                                          
+                                |VGW|  Direct   |                                          
+                                +---|  Connect  |                                          
+                                    +-----------+ 
+```
+To simplify this diagram CGW were removed. In reality VPN servers talk to CGW, which talks to AWS hardware VPN, then VPN talks to VGW which is attached to VPC.
+
 # Terraform
 Tags used for VPN identification:
 * bird = True (static)
