@@ -50,8 +50,7 @@
                                 |VGW|  Direct   |                                          
                                 +---|  Connect  |                                          
                                     +-----------+ 
-```
-To simplify this diagram CGW were removed. In reality VPN servers talk to CGWs, which talks to AWS hardware VPN, then VPN talks to VGW which is attached to VPC. It's worth mentioning that every VPN connection has two VPN tunnels which are not showed on this diagram. 
+``` 
 
 # Terraform
 Tags used for VPN identification:
