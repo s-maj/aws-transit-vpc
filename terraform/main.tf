@@ -12,7 +12,7 @@ module "satellite-nvirginia" {
 module "satellite-oregon" {
   source = "./satellite_module"
 
-  name             = "satellite-nvirginia"
+  name             = "satellite-oregon"
   cidr_block       = "192.168.221.0/24"
   public_cidr_list = [ "192.168.221.0/25", "192.168.221.128/25" ]
   asn_list         = [ "65200", "65201" ]
@@ -44,7 +44,7 @@ module "vpn-probe-satellite-oregon" {
   region        = "us-west-2"
 
   tags =  {
-    Name       = "satellite-nvirginia-probe",
+    Name       = "satellite-oregon-probe",
   }
 }
 
