@@ -61,13 +61,16 @@ module "vpn_direct_connect" {
 module "vpn-server" {
   source = "./vpn_module"
 
-  vpc_id         = "vpc-58afc23c"
-  subnet_list_id = ["subnet-50820108", "subnet-40017e36"]
+  vpc_id         = "${aws_default_subnet.default_subnet_a.vpc_id}"
+  subnet_list_id = [
+    "${aws_default_subnet.default_subnet_a.id}",
+    "${aws_default_subnet.default_subnet_b.id}"
+  ]
   instance_type  = "t2.small"
   key_name       = "AWSlab"
   instance_count = 2
   asn_list       = [ "65200", "65201" ]
-  region         = "eu-west-1"
+  region         = "${data.aws_region.current.name}"
 
   tags =  {
     Name       = "strongSwan",
