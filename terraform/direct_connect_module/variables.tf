@@ -13,8 +13,3 @@ variable "cgw_ip_list" {
 variable "direct_connect_vgw" {
   type = "string"
 }
-
-variable "region" {
-  type = "string"
-  default = "eu-west-1"
-}

@@ -17,8 +17,3 @@ variable "asn_list" {
 variable "cgw_ip_list" {
   type = "list"
 }
-
-variable "region" {
-  type = "string"
-  default = "eu-west-1"
-}
