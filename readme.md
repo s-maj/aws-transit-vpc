@@ -1,3 +1,7 @@
+# Project deprecated
+
+Unless you have very specific needs, you should use cross region VPC peering, which is cheaper and more reliable (see [here](https://aws.amazon.com/about-aws/whats-new/2017/11/announcing-support-for-inter-region-vpc-peering/) and [here](https://aws.amazon.com/blogs/aws/new-almost-inter-region-vpc-peering/) and [here](https://aws.amazon.com/about-aws/whats-new/2018/03/inter-region-vpc-peering-is-now-available-in-aws-eu-frankfurt-region/)).
+
 # Platform
 * Ubuntu 16.04.2 or later (anything with kernel 4.4+)
 * BIRD 1.6.3 or later
