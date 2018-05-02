@@ -1,11 +1,7 @@
 data "aws_ami" "centos_ami" {
   most_recent = true
   filter {
-    name = "product-code"
-    values = ["aw0evgkw8e5c1q413zgy5pjce"]
+    name = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
   }
-}
-
-data "aws_region" "current" {
-  current = true
 }

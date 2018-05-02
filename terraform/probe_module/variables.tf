@@ -23,8 +23,3 @@ variable "key_name" {
 variable "tags" {
   type = "map"
 }
-
-variable "region" {
-  type    = "string"
-  default = "eu-west-1"
-}

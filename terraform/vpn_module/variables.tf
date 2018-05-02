@@ -31,8 +31,3 @@ variable "tags" {
 variable "asn_list" {
   type = "list"
 }
-
-variable "region" {
-  type    = "string"
-  default = "eu-west-1"
-}
